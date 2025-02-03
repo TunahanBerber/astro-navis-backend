@@ -14,8 +14,10 @@ app.use(morgan("tiny"));
 const api = process.env.API_URL || "/api";
 
 // Routes
-const apodRoute = require("./routes/apod");
+const apodRoute = require("./src/routes/apod");
+const marsRoverRoute = require("./src/routes/mars-rover"); 
 app.use(`${api}/apod`, apodRoute);
+app.use(`${api}/mars-rover`, marsRoverRoute); 
 
 // Root Route
 app.get("/", (req, res) => {
