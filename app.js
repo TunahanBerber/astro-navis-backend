@@ -14,13 +14,9 @@ app.use(morgan("tiny"));
 // MongoDB Connection
 const connectionString = process.env.CONNECTION_STRING;
 mongoose
-  .connect(connectionString, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(connectionString)
   .then(() => console.log("MongoDB connected successfully"))
   .catch((err) => console.error("MongoDB connection error:", err));
-
 // API Base URL
 const api = process.env.API_URL || "/api";
 
