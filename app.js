@@ -5,11 +5,25 @@ const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
+const allowedOrigins = ['https://astronavis.space', 'http://localhost:4200'];
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(morgan("tiny"));
+
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS policy blocked this request'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // MongoDB Connection
 const connectionString = process.env.CONNECTION_STRING;
